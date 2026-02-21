@@ -174,8 +174,8 @@ impl Generator for PoissonSeries {
     type Return = Never;
 
     fn next<R: Rng>(&mut self, rng: &mut R) -> GeneratorState<Self::Yield, Self::Return> {
-        let delta = self.rate.num_milliseconds() as f64
-            * -(1.0 - rng.gen_range(0.0f64..1.0f64)).ln();
+        let delta =
+            self.rate.num_milliseconds() as f64 * -(1.0 - rng.gen_range(0.0f64..1.0f64)).ln();
         self.current += chrono::Duration::milliseconds(delta as i64);
         GeneratorState::Yielded(self.current)
     }
